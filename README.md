@@ -28,11 +28,11 @@ Dans le dossier `csar/`, lancer simplement la commande suivante :
 python manage.py runserver
 ```
 
-L'app est alors disponible à l'adresse [http://127.0.0.1:8000/csar](http://127.0.0.1:8000/csar).
+L'app est alors disponible à l'adresse [http://127.0.0.1:8000/csar](http://127.0.0.1:8000/choix).
 
 ### Panneau d'administration
 
-Le panneau d'administration est disponible à l'adresse [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin).
+Le panneau d'administration est accessible depuis l'accueil, mais aussi directement à l'adresse [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin).
 Mais avant cela, il faut créer un compte administrateur avec la commande suivante :
 
 ```
