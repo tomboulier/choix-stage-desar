@@ -1,0 +1,8 @@
+<h1>Bienvenue dans l'application de choix des stages !</h1>
+
+Voici la liste des stages :
+<ul>
+    {% for stage in liste_stages %}
+        <li> {{ stage.intitule }} </li>
+    {% endfor %}
+</ul>
