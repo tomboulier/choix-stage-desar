@@ -1,8 +1,18 @@
-<h1>Bienvenue dans l'application de choix des stages !</h1>
+{% extends 'choix/base.html' %}
 
-Voici la liste des stages :
-<ul>
+{% block title %}Choix des stages DESAR Grenoble{% endblock title %}
+
+{% block content %}
+
+<div class="card">
+  <div class="card-header">
+    <h5 class="card-title">Stages disponibles</h5>
+  </div>
+  <ul class="list-group list-group-flush">
     {% for stage in liste_stages %}
-        <li> {{ stage.intitule }} </li>
+        <li class="list-group-item">{{ stage.intitule }}</li>
     {% endfor %}
-</ul>
+  </ul>
+</div>
+
+{% endblock content %}
