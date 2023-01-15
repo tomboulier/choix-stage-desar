@@ -1,3 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Interne, Stage
+
+admin.site.register(Interne)
+admin.site.register(Stage)
