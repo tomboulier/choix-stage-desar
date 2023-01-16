@@ -39,13 +39,16 @@ class Stage(models.Model):
         null=True,
         blank=True,
     )
+
     intitule = models.CharField(max_length=200)
+
     DUREES_STAGES_EN_MOIS = [
-        ('3 mois', 'trimestre'),
-        ('6 mois', 'semestre'),
+        ('trimestre', '3 mois'),
+        ('semestre', '6 mois'),
     ]
+
     duree = models.CharField(
-        max_length=6,
+        max_length=9,
         choices=DUREES_STAGES_EN_MOIS
     )
 
@@ -53,11 +56,11 @@ class Stage(models.Model):
         """
         Retourne la durée, exprimée en mois, sous forme d'entier
         """
-        if self.duree == '3 mois':
+        if self.duree == 'trimestre':
             return 3
-        if self.duree == '6 mois':
+        if self.duree == 'semestre':
             return 6
-        raise Exception("l'attribut 'duree' de 'Stage' ne peut être que '3 mois' ou '6 mois'")
+        raise Exception("l'attribut 'duree' de 'Stage' ne peut être que 'trimestre' ou 'semestre'")
 
     def __str__(self):
         return self.intitule
