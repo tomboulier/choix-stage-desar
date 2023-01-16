@@ -1,3 +1,5 @@
+/csar/choix/migrations/*.py
+
 # fichiers de PyCharm
 .idea/*
 
