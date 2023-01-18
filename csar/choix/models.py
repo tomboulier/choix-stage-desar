@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 
 
@@ -93,3 +94,14 @@ class Choix(models.Model):
     class Meta:
         verbose_name_plural = "Choix"  # permet de ne pas afficher automatiquement "Choixs"
                                        # dans le panneau d'administration
+
+    def clean(self):
+        """
+        La ré-écriture de cette méthode de base permet de valider qu'il reste des postes
+        disponibles dans le stage au moment du choix.
+
+        Cf. documentation de Django :
+        https://docs.djangoproject.com/en/4.1/ref/models/instances/#django.db.models.Model.clean
+        """
+        if self.stage.nombre_postes_disponibles() == 0:
+            raise ValidationError(f"Le stage {self.stage.intitule} n'a plus de poste disponible")
