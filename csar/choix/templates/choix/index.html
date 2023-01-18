@@ -10,7 +10,14 @@
   </div>
   <ul class="list-group list-group-flush">
     {% for stage in liste_stages %}
-        <li class="list-group-item">{{ stage.intitule }}</li>
+        <li class="list-group-item">
+            {{ stage.intitule }}
+
+            <small class="d-block text-muted"> Durée : {{ stage.duree_en_mois }} mois </small>
+            <small class="d-block text-muted">
+                Places disponibles : {{ stage.nombre_postes_disponibles }} / {{ stage.nombre_postes_ouverts }}
+            </small>
+        </li>
     {% endfor %}
   </ul>
 </div>
