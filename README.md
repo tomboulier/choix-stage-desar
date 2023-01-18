@@ -1,5 +1,7 @@
 # CSAR: Choix des Stages en Anesthésie-Réanimation
 
+[![Django CI](https://github.com/tomboulier/csar/actions/workflows/django.yml/badge.svg)](https://github.com/tomboulier/csar/actions/workflows/django.yml)
+
 Une webapp permettant de choisir les stages en anesthésie-réanimation.
 
 ## Installation
