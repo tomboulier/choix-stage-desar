@@ -1,6 +1,6 @@
 {% extends 'choix/base.html' %}
 
-{% block title %}Choix des stages DESAR Grenoble{% endblock title %}
+{% block title %}{{ interne.prenom }} {{ interne.nom }} | Choix des stages DESAR Grenoble{% endblock title %}
 
 {% block content %}
 
@@ -10,7 +10,8 @@
 
 <div class="card">
   <div class="card-header">
-    <h5 class="card-title">Stages disponibles</h5>
+    <h5 class="card-title">Salut à toi, {{ interne.prenom }} {{ interne.nom }} !
+        Voici la liste des stages disponibles pour toi :</h5>
   </div>
   <ul class="list-group list-group-flush">
     {% for stage in liste_stages %}

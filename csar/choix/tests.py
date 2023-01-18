@@ -21,6 +21,21 @@ class StageModelsTests(TestCase):
         Choix.objects.create(interne=interne2, stage=stage)
         self.assertEqual(stage.nombre_postes_disponibles(), 1)
 
+    def test_est_disponible(self):
+        # on crée un stage avec un seul poste disponible
+        stage = Stage.objects.create(intitule="stage", nombre_postes_ouverts=1)
+        # on vérifie qu'il est bien disponible
+        self.assertTrue(stage.est_disponible())
+        # on vérifie que le nombre de stage disponibles est bien égal à 1
+        self.assertEqual(Stage.objects.disponibles().count(), 1)
+        # on crée un interne qui va choisir le stage
+        interne = Interne.objects.create(prenom="Interne", nom="au pif")
+        stage.interne_set.add(interne)
+        # le stage n'est alors plus disponible
+        self.assertFalse(stage.est_disponible())
+        # le nombre de stages disponibles est alors égal à 0
+        self.assertEqual(Stage.objects.disponibles().count(), 0)
+
 
 class ChoixModelsTests(TestCase):
     def test_relation_plusieurs_a_plusieurs(self):
