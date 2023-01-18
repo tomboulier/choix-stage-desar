@@ -27,7 +27,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        cd csar
+        working-directory: ./
     - name: Création base de données
       run: |
         python manage.py migrate
