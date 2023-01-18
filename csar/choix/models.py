@@ -3,6 +3,25 @@ from django.db import models
 import uuid
 
 
+class StageManager(models.Manager):
+    """
+    Manager personnalisé pour pouvoir filtrer les stages suivant leur disponibilité
+    Sources :
+    - question StackOverFlow : https://stackoverflow.com/questions/2276768/django-query-filtering-from-model-method
+    - documentation Django : https://docs.djangoproject.com/en/4.0/topics/db/managers/
+    """
+
+    def est_disponible(self):
+        """
+        Retourne un QuerySet permettant de filtrer sur la disponibilité du stage.
+        Ainsi, Stages.objects.est_disponible() renverra la liste de tous les stages
+        disponibles.
+        """
+        stages = super().get_queryset().all()
+        id_disponibles = [stage.id for stage in stages if stage.est_disponible()]
+        return stages.filter(id__in=id_disponibles)
+
+
 class Stage(models.Model):
     """
     Classe faisant référence à un stage. À noter qu'il peut exister plusieurs
@@ -12,24 +31,25 @@ class Stage(models.Model):
         - intitule : l'intitulé du stage, exemple "Bloc des urgences deuxième trimestre"
         - duree : la durée du stage (peut être égale seulement à "3 mois" ou "6 mois")
         - nombre_postes_ouverts : le nombre de postes ouverts, c'est-à-dire au total (différent
-            du nombre de postes disponibles, qui sera dans les méthodes)
+        du nombre de postes disponibles, qui sera dans les méthodes)
     Méthodes :
         - duree_en_mois : la durée du stage, exprimée en mois (peut être égale seulement à 3 ou 6)
         - nombre_postes_disponibles : le nombre de poste qu'il reste après choix des internes
     """
 
-    intitule = models.CharField(max_length=200)
+    # Manager personnalisé, pour filtrer sur les stages disponibles via la méthode StageManager.est_disponible()
+    objects = StageManager()
 
+    # Fields
+    intitule = models.CharField(max_length=200)
     DUREES_STAGES_EN_MOIS = [
         ('trimestre', '3 mois'),
         ('semestre', '6 mois'),
     ]
-
     duree = models.CharField(
         max_length=9,
         choices=DUREES_STAGES_EN_MOIS
     )
-
     nombre_postes_ouverts = models.IntegerField(default=0)
 
     def duree_en_mois(self):
@@ -47,6 +67,9 @@ class Stage(models.Model):
         Le nombre de postes qu'il reste après choix des internes
         """
         return self.nombre_postes_ouverts - self.interne_set.all().count()
+
+    def est_disponible(self):
+        return self.nombre_postes_disponibles() > 0
 
     def __str__(self):
         return self.intitule
@@ -97,7 +120,7 @@ class Choix(models.Model):
 
     class Meta:
         verbose_name_plural = "Choix"  # permet de ne pas afficher automatiquement "Choixs"
-                                       # dans le panneau d'administration
+        # dans le panneau d'administration
 
     def clean(self):
         """
