@@ -25,7 +25,7 @@ def choix_interne(request, interne_uuid):
         return index(request, error_message="Erreur: plusieurs internes ont le même identifiant unique")
 
     # pour l'affichage de l'interne
-    liste_stages = Stage.objects.est_disponible().order_by("intitule")
+    liste_stages = Stage.objects.disponibles().order_by("intitule")
     context = {'interne': interne,
                'liste_stages': liste_stages}
     return render(request, 'choix/interne.html', context)

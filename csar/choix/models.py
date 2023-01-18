@@ -11,7 +11,7 @@ class StageManager(models.Manager):
     - documentation Django : https://docs.djangoproject.com/en/4.0/topics/db/managers/
     """
 
-    def est_disponible(self):
+    def disponibles(self):
         """
         Retourne un QuerySet permettant de filtrer sur la disponibilité du stage.
         Ainsi, Stages.objects.est_disponible() renverra la liste de tous les stages
