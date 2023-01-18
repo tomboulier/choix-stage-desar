@@ -1,5 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.db import models
+import uuid
 
 
 class Stage(models.Model):
@@ -61,6 +62,8 @@ class Interne(models.Model):
     Attributs :
         - nom, prenom, mail, et telephone : sont stockés sous forme de strings
         - stage : le stage choisi par l'interne
+        - uuid: un identifiant unique (UUID = "universally unique identifier") qui permettra
+            d'accéder à la page de l'interne sans mettre en clair dans l'URL la clé primaire
     """
     nom = models.CharField(max_length=200)
     prenom = models.CharField(max_length=200)
@@ -71,6 +74,7 @@ class Interne(models.Model):
         blank=True,
         through="Choix",
     )
+    uuid = models.UUIDField(default=uuid.uuid4)
 
     def __str__(self):
         return self.prenom + ' ' + self.nom
